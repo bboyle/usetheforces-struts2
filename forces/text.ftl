@@ -1,5 +1,5 @@
 <#--
-Struts2 UI theme from usetheforces
+Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/textfield
 -->
 
