@@ -1,6 +1,6 @@
 <#--
 Struts2 UI theme from usetheforces
-http://code.google.com/p/usetheforces-struts2/
+http://code.google.com/p/usetheforces-struts2/wiki/textfield
 -->
 
 <#--
@@ -25,33 +25,28 @@ http://code.google.com/p/usetheforces-struts2/
  * under the License.
  */
 -->
+<li class="xf-input<#rt/>
+<#if parameters.cssClass??> ${parameters.cssClass?htm}</#if><#rt/>
+">
+<label for="${parameters.id?html!""}">
+<#if parameters.label??>
+	<span class="xf-label">${parameters.label}${parameters.labelSeparator?html!":"}</span>
+</#if>
+<#if parameters.hint??>
+	<small class="xf-hint">${parameters.hint?html}</small>
+</#if>
+</label>
 <input type="text"<#rt/>
+ id="${parameters.id?html!""}"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
+<#if parameters.nameValue??>
+ value="<@s.property value="parameters.nameValue"/>"<#rt/>
+</#if>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
 </#if>
 <#if parameters.maxlength??>
  maxlength="${parameters.maxlength?html}"<#rt/>
 </#if>
-<#if parameters.nameValue??>
- value="<@s.property value="parameters.nameValue"/>"<#rt/>
-</#if>
-<#if parameters.disabled?default(false)>
- disabled="disabled"<#rt/>
-</#if>
-<#if parameters.readonly?default(false)>
- readonly="readonly"<#rt/>
-</#if>
-<#if parameters.tabindex??>
- tabindex="${parameters.tabindex?html}"<#rt/>
-</#if>
-<#if parameters.id??>
- id="${parameters.id?html}"<#rt/>
-</#if>
-<#include "/${parameters.templateDir}/simple/css.ftl" />
-<#if parameters.title??>
- title="${parameters.title?html}"<#rt/>
-</#if>
-<#include "/${parameters.templateDir}/simple/common-attributes.ftl" />
-<#include "/${parameters.templateDir}/simple/dynamic-attributes.ftl" />
 />
+</li>
