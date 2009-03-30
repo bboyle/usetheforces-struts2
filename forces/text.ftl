@@ -2,6 +2,7 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/textfield
 -->
+<#assign labelTagName=parameters.labelTagName?default("span")?html/>
 
 <#--
 /*
@@ -26,14 +27,17 @@ http://code.google.com/p/usetheforces-struts2/wiki/textfield
  */
 -->
 <li class="xf-input<#rt/>
-<#if parameters.cssClass??> ${parameters.cssClass?htm}</#if><#rt/>
+<#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <label for="${parameters.id?html!""}">
 <#if parameters.label??>
-	<span class="xf-label">${parameters.label}${parameters.labelSeparator?html!":"}</span>
+<${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
+</#if>
+<#if parameters.required?? && parameters.required>
+<abbr class="required" title="required">*</abbr>
 </#if>
 <#if parameters.hint??>
-	<small class="xf-hint">${parameters.hint?html}</small>
+<small class="xf-hint">${parameters.hint?html}</small>
 </#if>
 </label>
 <input type="text"<#rt/>
