@@ -1,5 +1,6 @@
 <#-- 
 Struts2 "forces" UI theme 
+http://code.google.com/p/usetheforces-struts2/wiki/select
 --> 
 <#assign labelTagName=parameters.labelTagName?default("span")?html/>
 
@@ -54,16 +55,12 @@ Struts2 "forces" UI theme
 <#if parameters.id??> 
  id="${parameters.id?html}"<#rt/> 
 </#if> 
-<#include "/${parameters.templateDir}/simple/css.ftl" /> 
 <#if parameters.title??> 
  title="${parameters.title?html}"<#rt/> 
 </#if> 
 <#if parameters.multiple?default(false)> 
  multiple="multiple"<#rt/> 
 </#if> 
-<#include "/${parameters.templateDir}/simple/scripting-events.ftl" /> 
-<#include "/${parameters.templateDir}/simple/common-attributes.ftl" /> 
-<#include "/${parameters.templateDir}/simple/dynamic-attributes.ftl" /> 
 > 
 <#if parameters.headerKey?? && parameters.headerValue??> 
     <option value="${parameters.headerKey?html}" 
