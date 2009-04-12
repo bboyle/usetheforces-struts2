@@ -28,7 +28,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
  * under the License. 
  */ 
 --> 
-<li class="xf-select<#rt/> 
+<li class="xf-select1<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/> 
 ">
 <fieldset id="${parameters.id?html}">

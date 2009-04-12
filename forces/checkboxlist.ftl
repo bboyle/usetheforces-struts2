@@ -2,6 +2,7 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/checkboxlist
 --> 
+<#assign labelTagName=parameters.labelTagName?default("span")?html/>
 <#assign choicesTagName=parameters.choicesTagName?default("ul")?html/> 
 <#assign itemTagName=parameters.itemTagName?default("li")?html/>
 
@@ -27,6 +28,21 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkboxlist
  * under the License. 
  */ 
 --> 
+<li class="xf-select<#rt/>
+<#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/> 
+">
+<fieldset id="${parameters.id?html}">
+<legend> 
+<#if parameters.label??> 
+  ${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
+</#if> 
+<#if parameters.required?? && parameters.required> 
+  <abbr class="required" title="required">*</abbr> 
+</#if> 
+<#if parameters.hint??> 
+  <small class="xf-hint">${parameters.hint?html}</small> 
+</#if> 
+</legend> 
 <#assign itemCount = 0/> 
 <#if parameters.list??> 
 <#if choicesTagName?has_content><${choicesTagName} class="choices"></#if> 
@@ -63,3 +79,5 @@ ${itemValue?html}</label><#rt/>
 	</@s.iterator> 
 <#if choicesTagName?has_content></${choicesTagName}></#if> 
 </#if>
+</fieldset>
+</li>
