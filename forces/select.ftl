@@ -1,7 +1,7 @@
-<#-- 
-Struts2 "forces" UI theme 
+<#--
+Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/select
---> 
+-->
 <#assign labelTagName=parameters.labelTagName?default("span")?html/>
 
 <#-- 
@@ -31,13 +31,13 @@ http://code.google.com/p/usetheforces-struts2/wiki/select
 "> 
 <label for="${parameters.id?html!""}"> 
 <#if parameters.label??> 
-        <${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
+  ${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
 </#if> 
 <#if parameters.required?? && parameters.required> 
-        <abbr class="required" title="required">*</abbr> 
+  <abbr class="required" title="required">*</abbr> 
 </#if> 
 <#if parameters.hint??> 
-        <small class="xf-hint">${parameters.hint?html}</small> 
+  <small class="xf-hint">${parameters.hint?html}</small> 
 </#if> 
 </label> 
 <#setting number_format="#.#####"> 
@@ -63,42 +63,42 @@ http://code.google.com/p/usetheforces-struts2/wiki/select
 </#if> 
 > 
 <#if parameters.headerKey?? && parameters.headerValue??> 
-    <option value="${parameters.headerKey?html}" 
-    <#if tag.contains(parameters.nameValue, parameters.headerKey) == true> 
-    selected="selected" 
-    </#if> 
-    >${parameters.headerValue?html}</option> 
+  <option value="${parameters.headerKey?html}" 
+  <#if tag.contains(parameters.nameValue, parameters.headerKey) == true> 
+  selected="selected" 
+  </#if> 
+  >${parameters.headerValue?html}</option> 
 </#if> 
 <#if parameters.emptyOption?default(false)> 
-    <option value=""></option> 
+  <option value=""></option> 
 </#if> 
 <@s.iterator value="parameters.list"> 
-        <#if parameters.listKey??> 
-            <#if stack.findValue(parameters.listKey)??> 
-              <#assign itemKey = stack.findValue(parameters.listKey)/> 
-              <#assign itemKeyStr = itemKey.toString()/> 
-            <#else> 
-              <#assign itemKey = ''/> 
-              <#assign itemKeyStr = ''/> 
-            </#if> 
-        <#else> 
-            <#assign itemKey = stack.findValue('top')/> 
-            <#assign itemKeyStr = itemKey.toString()/> 
-        </#if> 
-        <#if parameters.listValue??> 
-            <#if stack.findString(parameters.listValue)??> 
-              <#assign itemValue = stack.findString(parameters.listValue)/> 
-            <#else> 
-              <#assign itemValue = ''/> 
-            </#if> 
-        <#else> 
-            <#assign itemValue = stack.findString('top')/> 
-        </#if> 
-    <option value="${itemKeyStr?html}"<#rt/> 
-        <#if tag.contains(parameters.nameValue, itemKey) == true> 
+		<#if parameters.listKey??> 
+			<#if stack.findValue(parameters.listKey)??> 
+			  <#assign itemKey = stack.findValue(parameters.listKey)/> 
+			  <#assign itemKeyStr = itemKey.toString()/> 
+			<#else> 
+			  <#assign itemKey = ''/> 
+			  <#assign itemKeyStr = ''/> 
+			</#if> 
+		<#else> 
+			<#assign itemKey = stack.findValue('top')/> 
+			<#assign itemKeyStr = itemKey.toString()/> 
+		</#if> 
+		<#if parameters.listValue??> 
+			<#if stack.findString(parameters.listValue)??> 
+			  <#assign itemValue = stack.findString(parameters.listValue)/> 
+			<#else> 
+			  <#assign itemValue = ''/> 
+			</#if> 
+		<#else> 
+			<#assign itemValue = stack.findString('top')/> 
+		</#if> 
+	<option value="${itemKeyStr?html}"<#rt/> 
+		<#if tag.contains(parameters.nameValue, itemKey) == true> 
  selected="selected"<#rt/> 
-        </#if> 
-    >${itemValue?html}</option><#lt/> 
+		</#if> 
+	>${itemValue?html}</option><#lt/> 
 </@s.iterator>
 
 <#include "/${parameters.templateDir}/simple/optgroup.ftl" />

@@ -1,5 +1,6 @@
 <#-- 
-        Modified by Ben Boyle, 2009-03-27 
+Struts2 "forces" UI theme
+http://code.google.com/p/usetheforces-struts2/wiki/checkboxlist
 --> 
 <#assign choicesTagName=parameters.choicesTagName?default("ul")?html/> 
 <#assign itemTagName=parameters.itemTagName?default("li")?html/>
@@ -29,36 +30,36 @@
 <#assign itemCount = 0/> 
 <#if parameters.list??> 
 <#if choicesTagName?has_content><${choicesTagName} class="choices"></#if> 
-    <@s.iterator value="parameters.list"> 
-        <#assign itemCount = itemCount + 1/> 
-        <#if parameters.listKey??> 
-            <#assign itemKey = stack.findValue(parameters.listKey)/> 
-        <#else> 
-            <#assign itemKey = stack.findValue('top')/> 
-        </#if> 
-        <#if parameters.listValue??> 
-            <#assign itemValue = stack.findString(parameters.listValue)?default("")/> 
-        <#else> 
-            <#assign itemValue = stack.findString('top')/> 
-        </#if> 
+	<@s.iterator value="parameters.list"> 
+		<#assign itemCount = itemCount + 1/> 
+		<#if parameters.listKey??> 
+			<#assign itemKey = stack.findValue(parameters.listKey)/> 
+		<#else> 
+			<#assign itemKey = stack.findValue('top')/> 
+		</#if> 
+		<#if parameters.listValue??> 
+			<#assign itemValue = stack.findString(parameters.listValue)?default("")/> 
+		<#else> 
+			<#assign itemValue = stack.findString('top')/> 
+		</#if> 
 <#assign itemKeyStr=itemKey.toString() /> 
 <#if itemTagName?has_content><${itemTagName}></#if><#rt/> 
 <label for="${parameters.name?html}-${itemCount}"><#rt/> 
 <input type="checkbox" name="${parameters.name?html}" value="${itemKeyStr?html}" id="${parameters.name?html}-${itemCount}"<#rt/>
-        <#if tag.contains(parameters.nameValue, itemKey)> 
+		<#if tag.contains(parameters.nameValue, itemKey)> 
  checked="checked"<#rt/> 
-        </#if> 
-        <#if parameters.disabled?default(false)> 
+		</#if> 
+		<#if parameters.disabled?default(false)> 
  disabled="disabled"<#rt/> 
-        </#if> 
-        <#if parameters.title??> 
+		</#if> 
+		<#if parameters.title??> 
  title="${parameters.title?html}"<#rt/> 
-        </#if> 
-        <#include "/${parameters.templateDir}/simple/scripting-events.ftl" /> 
-        <#include "/${parameters.templateDir}/simple/common-attributes.ftl" /> 
+		</#if> 
+		<#include "/${parameters.templateDir}/simple/scripting-events.ftl" /> 
+		<#include "/${parameters.templateDir}/simple/common-attributes.ftl" /> 
 /><#rt/> 
-${itemValue?html}</label><#rt/> 
+${itemValue?html}</label><#rt/>
 <#if itemTagName?has_content></${itemTagName}></#if> 
-    </@s.iterator> 
+	</@s.iterator> 
 <#if choicesTagName?has_content></${choicesTagName}></#if> 
 </#if>

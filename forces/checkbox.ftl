@@ -1,5 +1,6 @@
 <#-- 
-        Modified by Ben Boyle, 2009-03-27 
+Struts2 "forces" UI theme
+http://code.google.com/p/usetheforces-struts2/wiki/checkbox
 --> 
 <#assign itemTagName=parameters.choicesTagName?default("li")?html/>
 
@@ -53,5 +54,5 @@
 <#include "/${parameters.templateDir}/simple/dynamic-attributes.ftl" /> 
  /><#rt/> 
 <#if parameters.label??>${parameters.label?html}</label></#if><#rt/> 
-<input type="hidden" id="__checkbox_${parameters.id?html}" name="__checkbox_${parameters.name?html}" value="${parameters.fieldValue?html}"/>
+<input type="hidden" id="__checkbox_${parameters.id?html}" name="__checkbox_${parameters.name?html}" value="${parameters.fieldValue?html}"/><#rt/>
 <#if itemTagName?has_content></${itemTagName}></#if><#rt/>
