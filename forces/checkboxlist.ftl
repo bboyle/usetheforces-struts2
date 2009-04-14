@@ -34,7 +34,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkboxlist
 <fieldset id="${parameters.id?html}">
 <legend> 
 <#if parameters.label??> 
-  ${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
+  <${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
 </#if> 
 <#if parameters.required?? && parameters.required> 
   <abbr class="required" title="required">*</abbr> 
