@@ -1,13 +1,12 @@
 <#--
 Struts2 "forces" UI theme
-http://code.google.com/p/usetheforces-struts2/wiki/submit
+http://code.google.com/p/usetheforces-struts2/wiki/secret
 -->
-<#assign primary=parameters.primary?default(true)/>
-
+<#assign labelTagName=parameters.labelTagName?default("span")?html/>
 
 <#--
 /*
- * $Id: submit.ftl 720258 2008-11-24 19:05:16Z musachy $
+ * $Id: text.ftl 720258 2008-11-24 19:05:16Z musachy $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,22 +26,31 @@ http://code.google.com/p/usetheforces-struts2/wiki/submit
  * under the License.
  */
 -->
-<#if primary><li class="wfd-action-primary"><strong><#else><li
-class="wfd-action-secondary"></#if><#rt/>
-<input type="submit"<#rt/>
-<#if parameters.id?? && parameters.id?has_content>
- id="${parameters.id?html}"<#rt/>
+<li class="xf-secret<#rt/>
+<#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
+">
+<label for="${parameters.id?html!""}">
+<#if parameters.label??>
+	<${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
 </#if>
-<#if parameters.name??>
- name="${parameters.name?html}"<#rt/>
+<#if parameters.required?? && parameters.required>
+	<abbr class="xf-required" title="required">*</abbr>
 </#if>
+<#if parameters.hint??>
+	<small class="xf-hint">${parameters.hint}</small>
+</#if>
+</label>
+<input type="password"<#rt/>
+ id="${parameters.id?html!""}"<#rt/>
+ name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.nameValue??>
  value="<@s.property value="parameters.nameValue"/>"<#rt/>
-<#if parameters.nameValue?length &gt; 15>
- class="tf-verbose"<#rt/>
 </#if>
+<#if parameters.get("size")??>
+ size="${parameters.get("size")?html}"<#rt/>
 </#if>
-<#if parameters.disabled?default(false)>
- disabled="disabled"<#rt/>
-</#if><#rt/>
- /><#if primary></strong></#if></li>
+<#if parameters.maxlength??>
+ maxlength="${parameters.maxlength?html}"<#rt/>
+</#if>
+/>
+</li>
