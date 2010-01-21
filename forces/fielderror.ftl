@@ -1,13 +1,11 @@
 <#--
 Struts2 "forces" UI theme
-http://code.google.com/p/usetheforces-struts2/wiki/submit
+http://code.google.com/p/usetheforces-struts2/wiki/fielderror
 -->
-<#assign primary=parameters.primary?default(true)/>
-
 
 <#--
 /*
- * $Id: submit.ftl 720258 2008-11-24 19:05:16Z musachy $
+ * $Id: fielderror.ftl 722375 2008-12-02 05:19:57Z wesw $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,21 +25,13 @@ http://code.google.com/p/usetheforces-struts2/wiki/submit
  * under the License.
  */
 -->
-<#if primary><li class="wfd-primary-action"><strong><#else><li class="wfd-secondary-action"></#if><#rt/>
-<input type="submit"<#rt/>
-<#if parameters.id?? && parameters.id?has_content>
- id="${parameters.id?html}"<#rt/>
-</#if>
-<#if parameters.name??>
- name="${parameters.name?html}"<#rt/>
-</#if>
-<#if parameters.nameValue??>
- value="<@s.property value="parameters.nameValue"/>"<#rt/>
-<#if parameters.nameValue?length &gt; 14>
- class="tf-verbose"<#rt/>
-</#if>
-</#if>
-<#if parameters.disabled?default(false)>
- disabled="disabled"<#rt/>
-</#if><#rt/>
- /><#if primary></strong></#if></li>
+<#if fieldErrors?? && !fieldErrors.empty><#t/>
+<div id="tf-status-alert" class="tf-status"><div class="tf-alert inner">
+<h1>Unable to continue</h1>
+<ol>
+    <#list fieldErrors.entrySet() as error>
+        <li><a href="#${error.key}">${error.value[0]}</a></li>
+    </#list>
+</ol>
+</div></div>
+</#if><#t/>

@@ -2,97 +2,95 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 -->
-<#assign labelTagName=parameters.labelTagName?default("span")?html/>
-<#assign choicesTagName=parameters.choicesTagName?default("ul")?html/> 
-<#assign itemTagName=parameters.choicesTagName?default("li")?html/>
+<#assign type=type?default('radio')/>
+<#assign hasFieldError=parameters.id?? && fieldErrors?? && fieldErrors[parameters.id]??/>
 
-<#-- 
-/* 
- * $Id: radiomap.ftl 720258 2008-11-24 19:05:16Z musachy $ 
- * 
- * Licensed to the Apache Software Foundation (ASF) under one 
- * or more contributor license agreements.  See the NOTICE file 
- * distributed with this work for additional information 
- * regarding copyright ownership.  The ASF licenses this file 
- * to you under the Apache License, Version 2.0 (the 
- * "License"); you may not use this file except in compliance 
- * with the License.  You may obtain a copy of the License at 
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, 
- * software distributed under the License is distributed on an 
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY 
- * KIND, either express or implied.  See the License for the 
- * specific language governing permissions and limitations 
- * under the License. 
- */ 
---> 
-<li class="xf-select1<#rt/>
-<#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/> 
+<#--
+/*
+ * $Id: radiomap.ftl 720258 2008-11-24 19:05:16Z musachy $
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+-->
+<li class="xf-select<#if type == "radio">1</#if><#rt/>
+<#if hasFieldError> xf-invalid</#if><#rt/>
+<#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <fieldset id="${parameters.id?html}">
-<legend> 
-<#if parameters.label??> 
-  <${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
-</#if> 
-<#if parameters.required?? && parameters.required> 
-  <abbr class="required" title="required">*</abbr> 
-</#if> 
-<#if parameters.hint??> 
-  <small class="xf-hint">${parameters.hint?html}</small> 
-</#if> 
-</legend> 
-<#if parameters.list??> 
-<#if choicesTagName?has_content><${choicesTagName}<#rt/> 
- class="choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>"></#if> 
-<@s.iterator value="parameters.list"> 
-	<#if parameters.listKey??> 
-		<#assign itemKey = stack.findValue(parameters.listKey)/> 
-	<#else> 
-		<#assign itemKey = stack.findValue('top')/> 
-	</#if> 
-	<#assign itemKeyStr = itemKey.toString() /> 
-	<#if parameters.listValue??> 
-		<#assign itemValue = stack.findString(parameters.listValue)/> 
-	<#else> 
-		<#assign itemValue = stack.findString('top')/> 
-	</#if> 
-<#if itemTagName?has_content><${itemTagName}></#if><#rt/> 
-<label for="${parameters.id?html}-${itemKeyStr?html}"><#rt/> 
-<input type="radio"<#rt/> 
-<#if parameters.name??> 
- name="${parameters.name?html}"<#rt/> 
-</#if> 
- id="${parameters.id?html}-${itemKeyStr?html}"<#rt/> 
-<#if tag.contains(parameters.nameValue?default(''), itemKeyStr)> 
- checked="checked"<#rt/> 
-</#if> 
-<#if itemKey??> 
- value="${itemKeyStr?html}"<#rt/> 
-</#if> 
-<#if parameters.disabled?default(false)> 
- disabled="disabled"<#rt/> 
-</#if> 
-<#if parameters.tabindex??> 
- tabindex="${parameters.tabindex?html}"<#rt/> 
-</#if> 
-<#if parameters.cssClass??> 
- class="${parameters.cssClass?html}"<#rt/> 
-</#if> 
-<#if parameters.cssStyle??> 
- style="${parameters.cssStyle?html}"<#rt/> 
-</#if> 
-<#if parameters.title??> 
- title="${parameters.title?html}"<#rt/> 
-</#if> 
-<#include "/${parameters.templateDir}/simple/scripting-events.ftl" /> 
-<#include "/${parameters.templateDir}/simple/common-attributes.ftl" /> 
-/><#rt/> 
-${itemValue}</label><#rt/> 
-<#if itemTagName?has_content></${itemTagName}></#if> 
-</@s.iterator> 
-<#if choicesTagName?has_content></${choicesTagName}></#if> 
+<legend>
+<#if parameters.label??>
+<span class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
+</#if>
+<#if parameters.required?? && parameters.required>
+  <abbr class="xf-required" title="required">*</abbr>
+</#if>
+<#if parameters.hint??>
+  <small class="xf-hint">${parameters.hint}</small>
+</#if>
+</legend>
+<#if parameters.list??>
+<ul class="xf-choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>">
+<@s.iterator value="parameters.list">
+	<#if parameters.listKey??>
+		<#assign itemKey = stack.findValue(parameters.listKey)/>
+	<#else>
+		<#assign itemKey = stack.findValue('top')/>
+	</#if>
+	<#assign itemKeyStr = itemKey.toString() />
+	<#if parameters.listValue??>
+		<#assign itemValue = stack.findString(parameters.listValue)/>
+	<#else>
+		<#assign itemValue = stack.findString('top')/>
+	</#if>
+<li><#rt/>
+<#assign forId>${parameters.id?html}-${itemKeyStr?replace('[^A-Za-z0-9-_]+', '-', 'r')?html}</#assign>
+<label for="${forId}"><#rt/>
+<input type="${type}"<#rt/>
+<#if parameters.name??>
+ name="${parameters.name?html}"<#rt/>
+</#if>
+ id="${forId}"<#rt/>
+<#if tag.contains(parameters.nameValue?default(''), itemKeyStr)>
+ checked="checked"<#rt/>
+</#if>
+<#if itemKey??>
+ value="${itemKeyStr?html}"<#rt/>
+</#if>
+<#if parameters.disabled?default(false)>
+ disabled="disabled"<#rt/>
+</#if>
+<#if parameters.tabindex??>
+ tabindex="${parameters.tabindex?html}"<#rt/>
+</#if>
+<#if parameters.cssClass??>
+ class="${parameters.cssClass?html}"<#rt/>
+</#if>
+<#if parameters.cssStyle??>
+ style="${parameters.cssStyle?html}"<#rt/>
+</#if>
+<#if parameters.title??>
+ title="${parameters.title?html}"<#rt/>
+</#if>
+ /><#rt/>
+${itemValue}</label><#rt/>
+</li>
+</@s.iterator>
+</ul>
 </#if>
 </fieldset>
 </li>

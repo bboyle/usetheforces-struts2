@@ -1,13 +1,13 @@
 <#--
 Struts2 "forces" UI theme
-http://code.google.com/p/usetheforces-struts2/wiki/textfield
+http://code.google.com/p/usetheforces-struts2/wiki/textarea
 -->
 <#assign labelTagName=parameters.labelTagName?default("span")?html/>
 <#assign hasFieldError=parameters.id?? && fieldErrors?? && fieldErrors[parameters.id]??/>
 
 <#--
 /*
- * $Id: text.ftl 720258 2008-11-24 19:05:16Z musachy $
+ * $Id: textarea.ftl 720258 2008-11-24 19:05:16Z musachy $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,7 +27,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/textfield
  * under the License.
  */
 -->
-<li class="xf-input<#rt/>
+<li class="xf-textarea<#rt/>
 <#if hasFieldError> xf-invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
@@ -42,19 +42,33 @@ http://code.google.com/p/usetheforces-struts2/wiki/textfield
 	<small class="xf-hint">${parameters.hint}</small>
 </#if>
 </label>
-<input type="text"<#rt/>
- id="${parameters.id?html!""}"<#rt/>
+<textarea<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
+ cols="${parameters.cols?default("")?html}"<#rt/>
+ rows="${parameters.rows?default("")?html}"<#rt/>
+<#if parameters.wrap??>
+ wrap="${parameters.wrap?html}"<#rt/>
+</#if>
+<#if parameters.disabled?default(false)>
+ disabled="disabled"<#rt/>
+</#if>
+<#if parameters.readonly?default(false)>
+ readonly="readonly"<#rt/>
+</#if>
+<#if parameters.tabindex??>
+ tabindex="${parameters.tabindex?html}"<#rt/>
+</#if>
+<#if parameters.id??>
+ id="${parameters.id?html}"<#rt/>
+</#if>
+<#if parameters.title??>
+ title="${parameters.title?html}"<#rt/>
+</#if>
+><#rt/>
 <#if parameters.nameValue??>
- value="<@s.property value="parameters.nameValue"/>"<#rt/>
+<@s.property value="parameters.nameValue"/><#t/>
 </#if>
-<#if parameters.get("size")??>
- size="${parameters.get("size")?html}"<#rt/>
-</#if>
-<#if parameters.maxlength??>
- maxlength="${parameters.maxlength?html}"<#rt/>
-</#if>
-/>
+</textarea>
 <#if hasFieldError>
     <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
