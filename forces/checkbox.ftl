@@ -65,6 +65,9 @@ ${parameters.itemLabel?html}</label><#rt/>
 </li>
 </ul>
 <#if parameters.label??>
+<#if hasFieldError>
+    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
 </fieldset>
 </#if>
 </li>
