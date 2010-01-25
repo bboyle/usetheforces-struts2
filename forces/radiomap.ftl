@@ -92,5 +92,8 @@ ${itemValue}</label><#rt/>
 </@s.iterator>
 </ul>
 </#if>
+<#if hasFieldError>
+    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
 </fieldset>
 </li>
