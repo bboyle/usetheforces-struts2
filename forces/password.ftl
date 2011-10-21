@@ -26,18 +26,21 @@ http://code.google.com/p/usetheforces-struts2/wiki/secret
  * under the License.
  */
 -->
-<li class="xf-secret<#rt/>
+<li class="secret<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <label for="${parameters.id?html!""}">
 <#if parameters.label??>
-	<${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
 </#if>
-<#if parameters.required?? && parameters.required>
-	<abbr class="xf-required" title="required">*</abbr>
+<#if parameters.required?default(false)>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 <#if parameters.hint??>
-	<small class="xf-hint">${parameters.hint}</small>
+	<small class="hint">${parameters.hint}</small>
 </#if>
 </label>
 <input type="password"<#rt/>
@@ -48,6 +51,9 @@ http://code.google.com/p/usetheforces-struts2/wiki/secret
 </#if>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
+</#if>
+<#if parameters.required>
+ required="required"<#rt/>
 </#if>
 <#if parameters.maxlength??>
  maxlength="${parameters.maxlength?html}"<#rt/>

@@ -26,26 +26,29 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkbox
  * under the License.
  */
 -->
-<li class="xf-select<#rt/>
-<#if hasFieldError> xf-invalid</#if><#rt/>
+<li class="select<#rt/>
+<#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <#if parameters.label??>
 <fieldset id="${parameters.id?html}">
 <legend>
-<span class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
-<#if parameters.required?? && parameters.required>
-  <abbr class="xf-required" title="required">*</abbr>
+<span class="label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
+<#if parameters.required?default(false)>
+  <abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 <#if parameters.hint??>
-  <small class="xf-hint">${parameters.hint}</small>
+  <small class="hint">${parameters.hint}</small>
 </#if>
 </legend>
 <#assign forId>${parameters.id?html}-${parameters.fieldValue?replace('[^A-Za-z0-9-_]+', '-', 'r')?html}</#assign>
 <#else>
 <#assign forId>${parameters.id?html}</#assign>
 </#if>
-<ul class="xf-choices">
+<ul class="choices">
 <li><#rt/>
 <label for="${forId}"><#rt/>
 <input type="checkbox"<#rt/>
@@ -57,6 +60,9 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkbox
  checked="checked"<#rt/>
 </#if>
  value="${parameters.fieldValue?html!''}"<#rt/>
+<#if parameters.required>
+ required="required"<#rt/>
+</#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
 </#if>
@@ -65,9 +71,6 @@ ${parameters.itemLabel?html}</label><#rt/>
 </li>
 </ul>
 <#if parameters.label??>
-<#if hasFieldError>
-    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
 </fieldset>
 </#if>
 </li>

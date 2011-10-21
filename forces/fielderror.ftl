@@ -26,12 +26,12 @@ http://code.google.com/p/usetheforces-struts2/wiki/fielderror
  */
 -->
 <#if fieldErrors?? && !fieldErrors.empty><#t/>
-<div id="tf-status-alert" class="tf-status"><div class="tf-alert inner">
-<h1>Unable to continue</h1>
-<ol>
-    <#list fieldErrors.entrySet() as error>
-        <li><a href="#${error.key}">${error.value[0]}</a></li>
-    </#list>
-</ol>
+<div class="status warn"><div class="inner">
+	<h2>Unable to continue</h2>
+	<ol>
+	<#list fieldErrors.entrySet() as error>
+		<li><a href="#${error.key}">${error.value[0]}</a></li>
+	</#list>
+	</ol>
 </div></div>
 </#if><#t/>

@@ -27,7 +27,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/submit
  * under the License.
  */
 -->
-<#if primary><li class="wfd-primary-action"><strong><#else><li class="wfd-secondary-action"></#if><#rt/>
+<li><#if primary><strong></#if><#rt/>
 <input type="submit"<#rt/>
 <#if parameters.id?? && parameters.id?has_content>
  id="${parameters.id?html}"<#rt/>

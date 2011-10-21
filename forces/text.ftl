@@ -27,24 +27,30 @@ http://code.google.com/p/usetheforces-struts2/wiki/textfield
  * under the License.
  */
 -->
-<li class="xf-input<#rt/>
-<#if hasFieldError> xf-invalid</#if><#rt/>
+<li class="input<#rt/>
+<#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <label for="${parameters.id?html!""}">
 <#if parameters.label??>
-	<${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
 </#if>
-<#if parameters.required?? && parameters.required>
-	<abbr class="xf-required" title="required">*</abbr>
+<#if parameters.required?default(false)>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 <#if parameters.hint??>
-	<small class="xf-hint">${parameters.hint}</small>
+	<small class="hint">${parameters.hint}</small>
 </#if>
 </label>
 <input type="text"<#rt/>
  id="${parameters.id?html!""}"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
+<#if parameters.required>
+ required="required"<#rt/>
+</#if>
 <#if parameters.nameValue??>
  value="<@s.property value="parameters.nameValue"/>"<#rt/>
 </#if>
@@ -55,7 +61,4 @@ http://code.google.com/p/usetheforces-struts2/wiki/textfield
  maxlength="${parameters.maxlength?html}"<#rt/>
 </#if>
 />
-<#if hasFieldError>
-    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
 </li>

@@ -27,19 +27,22 @@ http://code.google.com/p/usetheforces-struts2/wiki/textarea
  * under the License.
  */
 -->
-<li class="xf-textarea<#rt/>
-<#if hasFieldError> xf-invalid</#if><#rt/>
+<li class="textarea<#rt/>
+<#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <label for="${parameters.id?html!""}">
 <#if parameters.label??>
-	<${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
 </#if>
-<#if parameters.required?? && parameters.required>
-	<abbr class="xf-required" title="required">*</abbr>
+<#if parameters.required?default(false)>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 <#if parameters.hint??>
-	<small class="xf-hint">${parameters.hint}</small>
+	<small class="hint">${parameters.hint}</small>
 </#if>
 </label>
 <textarea<#rt/>
@@ -51,6 +54,9 @@ http://code.google.com/p/usetheforces-struts2/wiki/textarea
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
+</#if>
+<#if parameters.required>
+ required="required"<#rt/>
 </#if>
 <#if parameters.readonly?default(false)>
  readonly="readonly"<#rt/>
@@ -69,7 +75,4 @@ http://code.google.com/p/usetheforces-struts2/wiki/textarea
 <@s.property value="parameters.nameValue"/><#t/>
 </#if>
 </textarea>
-<#if hasFieldError>
-    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
 </li>

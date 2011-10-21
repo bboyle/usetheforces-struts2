@@ -27,24 +27,27 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
  * under the License.
  */
 -->
-<li class="xf-select<#if type == "radio">1</#if><#rt/>
-<#if hasFieldError> xf-invalid</#if><#rt/>
+<li class="select<#if type == "radio">1</#if><#rt/>
+<#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <fieldset id="${parameters.id?html}">
 <legend>
 <#if parameters.label??>
-<span class="xf-label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
+<span class="label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
 </#if>
-<#if parameters.required?? && parameters.required>
-  <abbr class="xf-required" title="required">*</abbr>
+<#if parameters.required?default(false)>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 <#if parameters.hint??>
-  <small class="xf-hint">${parameters.hint}</small>
+	<small class="hint">${parameters.hint}</small>
 </#if>
 </legend>
 <#if parameters.list??>
-<ul class="xf-choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>">
+<ul class="choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>">
 <@s.iterator value="parameters.list">
 	<#if parameters.listKey??>
 		<#assign itemKey = stack.findValue(parameters.listKey)/>
@@ -57,10 +60,9 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 	<#else>
 		<#assign itemValue = stack.findString('top')/>
 	</#if>
-<li><#rt/>
+	<li><#rt/>
 <#assign forId>${parameters.id?html}-${itemKeyStr?replace('[^A-Za-z0-9-_]+', '-', 'r')?html}</#assign>
-<label for="${forId}"><#rt/>
-<input type="${type}"<#rt/>
+		<input type="${type}"<#rt/>
 <#if parameters.name??>
  name="${parameters.name?html}"<#rt/>
 </#if>
@@ -70,6 +72,9 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 </#if>
 <#if itemKey??>
  value="${itemKeyStr?html}"<#rt/>
+</#if>
+<#if parameters.required>
+ required="required"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
@@ -87,13 +92,10 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
  title="${parameters.title?html}"<#rt/>
 </#if>
  /><#rt/>
-${itemValue}</label><#rt/>
-</li>
+		<label for="${forId}">${itemValue}</label><#rt/>
+	</li>
 </@s.iterator>
 </ul>
-</#if>
-<#if hasFieldError>
-    <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
 </#if>
 </fieldset>
 </li>

@@ -27,18 +27,18 @@ fieldErrors[parameters.id]??/>
  * under the License.
  */
 -->
-<li class="xf-select<#rt/>
+<li class="select<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <label for="${parameters.id?html!""}">
 <#if parameters.label??>
-       <${labelTagName} class="xf-label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator?default(":")?html}</${labelTagName}>
 </#if>
-<#if parameters.required?? && parameters.required>
-       <abbr class="xf-required" title="required">*</abbr>
+<#if parameters.required?default(false)>
+	<abbr title="(required)">*</abbr>
 </#if>
 <#if parameters.hint??>
-       <small class="xf-hint">${parameters.hint?html}</small>
+	<small class="hint">${parameters.hint?html}</small>
 </#if>
 </label>
 <#setting number_format="#.#####">
@@ -46,6 +46,9 @@ fieldErrors[parameters.id]??/>
  name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
+</#if>
+<#if parameters.required>
+ required="required"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
@@ -78,36 +81,36 @@ fieldErrors[parameters.id]??/>
    <option value=""></option>
 </#if>
 <@s.iterator value="parameters.list">
-       <#if parameters.listKey??>
-           <#if stack.findValue(parameters.listKey)??>
-             <#assign itemKey = stack.findValue(parameters.listKey)/>
-             <#assign itemKeyStr = itemKey.toString()/>
-           <#else>
-             <#assign itemKey = ''/>
-             <#assign itemKeyStr = ''/>
-           </#if>
-       <#else>
-           <#assign itemKey = stack.findValue('top')/>
-           <#assign itemKeyStr = itemKey.toString()/>
-       </#if>
-       <#if parameters.listValue??>
-           <#if stack.findString(parameters.listValue)??>
-             <#assign itemValue = stack.findString(parameters.listValue)/>
-           <#else>
-             <#assign itemValue = ''/>
-           </#if>
-       <#else>
-           <#assign itemValue = stack.findString('top')/>
-       </#if>
+	   <#if parameters.listKey??>
+		   <#if stack.findValue(parameters.listKey)??>
+			 <#assign itemKey = stack.findValue(parameters.listKey)/>
+			 <#assign itemKeyStr = itemKey.toString()/>
+		   <#else>
+			 <#assign itemKey = ''/>
+			 <#assign itemKeyStr = ''/>
+		   </#if>
+	   <#else>
+		   <#assign itemKey = stack.findValue('top')/>
+		   <#assign itemKeyStr = itemKey.toString()/>
+	   </#if>
+	   <#if parameters.listValue??>
+		   <#if stack.findString(parameters.listValue)??>
+			 <#assign itemValue = stack.findString(parameters.listValue)/>
+		   <#else>
+			 <#assign itemValue = ''/>
+		   </#if>
+	   <#else>
+		   <#assign itemValue = stack.findString('top')/>
+	   </#if>
    <option value="${itemKeyStr?html}"<#rt/>
-       <#if tag.contains(parameters.nameValue, itemKey) == true>
+	   <#if tag.contains(parameters.nameValue, itemKey) == true>
  selected="selected"<#rt/>
-       </#if>
+	   </#if>
    >${itemValue?html}</option><#lt/>
 </@s.iterator>
 <#include "/${parameters.templateDir}/simple/optgroup.ftl" />
 </select>
 <#if hasFieldError>
-   <em class="xf-alert">${fieldErrors[parameters.id][0]?replace('^.*?:+', '', 'r')}</em>
+   <em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?:+', '', 'r')}</em>
 </#if>
 </li>
