@@ -1,6 +1,6 @@
 <#--
 Struts2 "forces" UI theme
-http://code.google.com/p/usetheforces-struts2/wiki/textfield
+https://github.com/bboyle/usetheforces-struts2/wiki/textfield
 -->
 <#assign type=type?default('text')/>
 <#assign labelTagName=parameters.labelTagName?default("span")?html/>
