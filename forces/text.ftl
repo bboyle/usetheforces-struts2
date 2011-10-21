@@ -3,7 +3,6 @@ Struts2 "forces" UI theme
 https://github.com/bboyle/usetheforces-struts2/wiki/textfield
 -->
 <#assign type=type?default('text')/>
-<#assign labelTagName=parameters.labelTagName?default("span")?html/>
 <#assign hasFieldError=parameters.id?? && fieldErrors?? && fieldErrors[parameters.id]??/>
 
 <#--
@@ -32,20 +31,7 @@ https://github.com/bboyle/usetheforces-struts2/wiki/textfield
 <#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
-<label for="${parameters.id?html!""}">
-<#if parameters.label??>
-	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator?default("")?html}</${labelTagName}>
-</#if>
-<#if parameters.required?default(false)>
-	<abbr title="(required)">*</abbr>
-</#if>
-<#if hasFieldError>
-	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
-<#if parameters.hint??>
-	<small class="hint">${parameters.hint}</small>
-</#if>
-</label>
+<#include "label.ftl"/>
 <input type="${type}"<#rt/>
  id="${parameters.id?html!""}"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>

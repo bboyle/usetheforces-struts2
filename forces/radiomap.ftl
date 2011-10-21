@@ -32,20 +32,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <fieldset id="${parameters.id?html}">
-<legend>
-<#if parameters.label??>
-<span class="label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
-</#if>
-<#if parameters.required?default(false)>
-	<abbr title="(required)">*</abbr>
-</#if>
-<#if hasFieldError>
-	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
-<#if parameters.hint??>
-	<small class="hint">${parameters.hint}</small>
-</#if>
-</legend>
+<#assign legend=true/><#include "label.ftl"/>
 <#if parameters.list??>
 <ul class="choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>">
 <@s.iterator value="parameters.list">

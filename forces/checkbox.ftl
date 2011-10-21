@@ -32,18 +32,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkbox
 ">
 <#if parameters.label??>
 <fieldset id="${parameters.id?html}">
-<legend>
-<span class="label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
-<#if parameters.required?default(false)>
-  <abbr title="(required)">*</abbr>
-</#if>
-<#if hasFieldError>
-	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
-<#if parameters.hint??>
-  <small class="hint">${parameters.hint}</small>
-</#if>
-</legend>
+<#assign legend=true/><#include "label.ftl"/>
 <#assign forId>${parameters.id?html}-${parameters.fieldValue?replace('[^A-Za-z0-9-_]+', '-', 'r')?html}</#assign>
 <#else>
 <#assign forId>${parameters.id?html}</#assign>
