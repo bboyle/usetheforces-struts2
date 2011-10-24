@@ -1,10 +1,9 @@
-<#assign legend=legend?default(false)/>
-
-<#if parameters.legend??><legend><#else><label for="${parameters.id?html!""}"></#if>
+<#assign legend=parameters.legend!false/>
+<#if legend??><legend><#else><label for="${parameters.id?html!""}"></#if>
 <#if parameters.label??>
 	<span class="label">${parameters.label}${parameters.labelseparator?default("")?html}</span>
 </#if>
-<#if parameters.required?default(false)>
+<#if parameters.required!false>
 	<abbr title="(required)">*</abbr>
 </#if>
 <#if hasFieldError>

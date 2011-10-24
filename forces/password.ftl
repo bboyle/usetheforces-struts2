@@ -29,20 +29,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/secret
 <li class="secret<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
-<label for="${parameters.id?html!""}">
-<#if parameters.label??>
-	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator!""?html}</${labelTagName}>
-</#if>
-<#if parameters.required!false>
-	<abbr title="(required)">*</abbr>
-</#if>
-<#if hasFieldError>
-	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
-</#if>
-<#if parameters.hint??>
-	<small class="hint">${parameters.hint}</small>
-</#if>
-</label>
+<#include "label.ftl"/>
 <input type="password"<#rt/>
  id="${parameters.id?html!""}"<#rt/>
  name="${parameters.name!""?html}"<#rt/>
