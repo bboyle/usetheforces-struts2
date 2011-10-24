@@ -2,7 +2,7 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/secret
 -->
-<#assign labelTagName=parameters.labelTagName?default("span")?html/>
+<#assign labelTagName=parameters.labelTagName!"span"?html/>
 
 <#--
 /*
@@ -29,17 +29,30 @@ http://code.google.com/p/usetheforces-struts2/wiki/secret
 <li class="secret<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
-<#include "label.ftl"/>
+<label for="${parameters.id?html!""}">
+<#if parameters.label??>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator!""?html}</${labelTagName}>
+</#if>
+<#if parameters.required!false>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
+<#if parameters.hint??>
+	<small class="hint">${parameters.hint}</small>
+</#if>
+</label>
 <input type="password"<#rt/>
  id="${parameters.id?html!""}"<#rt/>
- name="${parameters.name?default("")?html}"<#rt/>
+ name="${parameters.name!""?html}"<#rt/>
 <#if parameters.nameValue??>
  value="<@s.property value="parameters.nameValue"/>"<#rt/>
 </#if>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
 </#if>
-<#if parameters.required>
+<#if parameters.required!false>
  required="required"<#rt/>
 </#if>
 <#if parameters.maxlength??>

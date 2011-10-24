@@ -32,7 +32,18 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkbox
 ">
 <#if parameters.label??>
 <fieldset id="${parameters.id?html}">
-<#assign legend=true/><#include "label.ftl"/>
+<legend>
+<span class="label">${parameters.label}${parameters.labelseparator!""?html}</span>
+<#if parameters.required!false>
+  <abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
+<#if parameters.hint??>
+  <small class="hint">${parameters.hint}</small>
+</#if>
+</legend>
 <#assign forId>${parameters.id?html}-${parameters.fieldValue?replace('[^A-Za-z0-9-_]+', '-', 'r')?html}</#assign>
 <#else>
 <#assign forId>${parameters.id?html}</#assign>
@@ -49,10 +60,10 @@ http://code.google.com/p/usetheforces-struts2/wiki/checkbox
  checked="checked"<#rt/>
 </#if>
  value="${parameters.fieldValue?html!''}"<#rt/>
-<#if parameters.required>
+<#if parameters.required!false>
  required="required"<#rt/>
 </#if>
-<#if parameters.disabled?default(false)>
+<#if parameters.disabled!false>
  disabled="disabled"<#rt/>
 </#if>
  /><#rt/>

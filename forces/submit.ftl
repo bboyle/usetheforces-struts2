@@ -2,7 +2,7 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/submit
 -->
-<#assign primary=parameters.primary?default(true)/>
+<#assign primary=parameters.primary!true/>
 
 
 <#--
@@ -41,7 +41,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/submit
  class="tf-verbose"<#rt/>
 </#if>
 </#if>
-<#if parameters.disabled?default(false)>
+<#if parameters.disabled!false>
  disabled="disabled"<#rt/>
 </#if><#rt/>
  /><#if primary></strong></#if></li>

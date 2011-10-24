@@ -1,7 +1,7 @@
 <#--
 Struts2 "forces" UI theme
 -->
-<#assign labelTagName=parameters.labelTagName?default("span")?html/>
+<#assign labelTagName=parameters.labelTagName!"span"?html/>
 <#assign hasFieldError=parameters.id?? && fieldErrors?? &&
 fieldErrors[parameters.id]??/>
 
@@ -30,17 +30,27 @@ fieldErrors[parameters.id]??/>
 <li class="select<#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
-<#include "label.ftl"/>
+<label for="${parameters.id?html!""}">
+<#if parameters.label??>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator!""?html}</${labelTagName}>
+</#if>
+<#if parameters.required!false>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if parameters.hint??>
+	<small class="hint">${parameters.hint?html}</small>
+</#if>
+</label>
 <#setting number_format="#.#####">
 <select<#rt/>
- name="${parameters.name?default("")?html}"<#rt/>
+ name="${parameters.name!""?html}"<#rt/>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
 </#if>
-<#if parameters.required>
+<#if parameters.required!false>
  required="required"<#rt/>
 </#if>
-<#if parameters.disabled?default(false)>
+<#if parameters.disabled!false>
  disabled="disabled"<#rt/>
 </#if>
 <#if parameters.tabindex??>
@@ -53,7 +63,7 @@ fieldErrors[parameters.id]??/>
 <#if parameters.title??>
  title="${parameters.title?html}"<#rt/>
 </#if>
-<#if parameters.multiple?default(false)>
+<#if parameters.multiple!false>
  multiple="multiple"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
@@ -67,7 +77,7 @@ fieldErrors[parameters.id]??/>
    </#if>
    >${parameters.headerValue?html}</option>
 </#if>
-<#if parameters.emptyOption?default(false)>
+<#if parameters.emptyOption!false>
    <option value=""></option>
 </#if>
 <@s.iterator value="parameters.list">

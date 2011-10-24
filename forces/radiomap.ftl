@@ -2,7 +2,7 @@
 Struts2 "forces" UI theme
 http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 -->
-<#assign type=type?default('radio')/>
+<#assign type=type!'radio'/>
 <#assign hasFieldError=parameters.id?? && fieldErrors?? && fieldErrors[parameters.id]??/>
 
 <#--
@@ -32,7 +32,20 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
 <fieldset id="${parameters.id?html}">
-<#assign legend=true/><#include "label.ftl"/>
+<legend>
+<#if parameters.label??>
+<span class="label">${parameters.label}${parameters.labelseparator!""?html}</span>
+</#if>
+<#if parameters.required!false>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
+<#if parameters.hint??>
+	<small class="hint">${parameters.hint}</small>
+</#if>
+</legend>
 <#if parameters.list??>
 <ul class="choices<#if parameters.cssClass??> ${parameters.cssClass?html}</#if>">
 <@s.iterator value="parameters.list">
@@ -54,16 +67,16 @@ http://code.google.com/p/usetheforces-struts2/wiki/radiomap
  name="${parameters.name?html}"<#rt/>
 </#if>
  id="${forId}"<#rt/>
-<#if tag.contains(parameters.nameValue?default(''), itemKeyStr)>
+<#if tag.contains(parameters.nameValue!'', itemKeyStr)>
  checked="checked"<#rt/>
 </#if>
 <#if itemKey??>
  value="${itemKeyStr?html}"<#rt/>
 </#if>
-<#if parameters.required>
+<#if parameters.required!false>
  required="required"<#rt/>
 </#if>
-<#if parameters.disabled?default(false)>
+<#if parameters.disabled!false>
  disabled="disabled"<#rt/>
 </#if>
 <#if parameters.tabindex??>

@@ -2,7 +2,8 @@
 Struts2 "forces" UI theme
 https://github.com/bboyle/usetheforces-struts2/wiki/textfield
 -->
-<#assign type=type?default('text')/>
+<#assign type=parameters.type!'text'/>
+<#assign labelTagName=parameters.labelTagName!"span"?html/>
 <#assign hasFieldError=parameters.id?? && fieldErrors?? && fieldErrors[parameters.id]??/>
 
 <#--
@@ -31,11 +32,24 @@ https://github.com/bboyle/usetheforces-struts2/wiki/textfield
 <#if hasFieldError> invalid</#if><#rt/>
 <#if parameters.cssClass??> ${parameters.cssClass?html}</#if><#rt/>
 ">
-<#include "label.ftl"/>
+<label for="${parameters.id?html!""}">
+<#if parameters.label??>
+	<${labelTagName} class="label">${parameters.label}${parameters.labelseparator!""?html}</${labelTagName}>
+</#if>
+<#if parameters.required!false>
+	<abbr title="(required)">*</abbr>
+</#if>
+<#if hasFieldError>
+	<em class="alert">${fieldErrors[parameters.id][0]?replace('^.*?: +', '', 'r')}</em>
+</#if>
+<#if parameters.hint??>
+	<small class="hint">${parameters.hint}</small>
+</#if>
+</label>
 <input type="${type}"<#rt/>
  id="${parameters.id?html!""}"<#rt/>
- name="${parameters.name?default("")?html}"<#rt/>
-<#if parameters.required>
+ name="${parameters.name!""?html}"<#rt/>
+<#if parameters.required!false>
  required="required"<#rt/>
 </#if>
 <#if parameters.nameValue??>
