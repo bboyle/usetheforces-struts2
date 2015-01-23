@@ -30,7 +30,7 @@ http://code.google.com/p/usetheforces-struts2/wiki/actionerror
 	<h2>Unable to continue</h2>
 	<ul>
 	<#list actionErrors as error>
-		<li><span>${error!}</span></li>
+		<li><span>${error!?xhtml}</span></li>
 	</#list>
 	</ul>
 </div></div>
